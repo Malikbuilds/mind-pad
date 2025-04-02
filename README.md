@@ -1,4 +1,4 @@
-# 🧠 Notion Clone
+# 🧠 Mindpad
 
 This project began as a guided Notion clone tutorial by codewithantonio, but I customized the structure, UI, and functionality to reflect my own design and dev decisions. 
 
