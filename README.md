@@ -1,8 +1,8 @@
 # 🧠 Notion Clone
 
-A fullstack Notion-style app built with **Next.js 13 App Router**, **TailwindCSS**, **Shadcn UI**, and **TypeScript**.
+This project began as a guided Notion clone tutorial by codewithantonio, but I customized the structure, UI, and functionality to reflect my own design and dev decisions. 
 
-This is a real-world portfolio project to practice fullstack development and modern UI patterns, inspired by Notion and designed with a clean, responsive layout.
+It helped me deeply understand React, Next.js, and component architecture.
 
 ---
 
@@ -12,7 +12,6 @@ This is a real-world portfolio project to practice fullstack development and mod
 - 🌙 Light/dark mode
 - 🧠 Notion-style UI with Tailwind + Shadcn
 - 🖼️ SVG icons, custom layout, and component architecture
-- 💻 Built with the App Router (`app/`) structure
 
 ---
 
@@ -22,7 +21,6 @@ This is a real-world portfolio project to practice fullstack development and mod
 - **Tailwind CSS**
 - **TypeScript**
 - **Shadcn UI**
-- **SVG Icons**
 
 ---
 
