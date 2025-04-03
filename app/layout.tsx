@@ -1,8 +1,9 @@
+import { ThemeProvider } from '@/components/ui/providers/theme-provider';
 import './globals.css';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Notion Clone',
+export const metadata = {
+  title: 'MindPad',
   description: 'Your custom Notion-style app',
   icons: {
     icon: [
@@ -18,8 +19,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+          storageKey="mindpad-theme"
+          >
+          {children}
+        </ThemeProvider>
+        </body>
     </html>
   );
 }
