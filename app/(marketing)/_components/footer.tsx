@@ -9,13 +9,13 @@ export const Footer = () => {
             <Logo />
             <div className="md:ml-auto w-full justify-between md:justify-end 
             flex items-center gap-x-2 text-muted-foreground">
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="text-muted-foreground dark:text-gray-200">
                     Terms of Service
                 </Button>
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="text-muted-foreground dark:text-gray-200">
                     Privacy Policy
             </Button>
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="text-muted-foreground dark:text-gray-200">
                     About Us
                 </Button>
             </div>
