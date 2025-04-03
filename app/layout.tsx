@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@/components/ui/providers/theme-provider';
 import './globals.css';
 import type { Metadata } from 'next';
+import { ConvexClientProvider } from '@/components/ui/providers/convex-provider';
 
 export const metadata = {
   title: 'MindPad',
@@ -21,15 +22,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-          storageKey="mindpad-theme"
-          >
-          {children}
-        </ThemeProvider>
+        <ConvexClientProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+            storageKey="mindpad-theme"
+            >
+            {children}
+          </ThemeProvider>
+        </ConvexClientProvider>
         </body>
     </html>
   );
