@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@/components/ui/providers/theme-provider';
-import './globals.css';
+import '@/app/globals.css';
 import type { Metadata } from 'next';
 import { ConvexClientProvider } from '@/components/ui/providers/convex-provider';
 
@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="mindpad-theme" suppressHydrationWarning>
       <body>
         <ConvexClientProvider>
           <ThemeProvider

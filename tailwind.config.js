@@ -11,11 +11,11 @@ module.exports = {
       colors: {
         accent: "hsl(var(--accent))",
       "accent-foreground": "hsl(var(--accent-foreground))",
-      secondary: "hsl(var(--secondary))",
-      "secondary-foreground": "hsl(var(--secondary-foreground))",
+      secondary: "oklch(var(--secondary))",
+      "secondary-foreground": "oklch(var(--secondary-foreground))",
       background: "hsl(0, 0%, 100%)", // light mode white
       // Add others as needed
-        }
-      }
-    }
+        },
+      },
+    },
   }
