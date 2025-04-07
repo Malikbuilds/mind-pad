@@ -1,14 +1,24 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronsLeft, MenuIcon } from "lucide-react";
+import { ChevronLeft, ChevronsLeft, MenuIcon, Plus, PlusCircle, PlusCircleIcon, PlusIcon, Search, Settings, Trash } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ComponentRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
+import { UserItem } from "./user-item";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Item } from "./item";
+import { toast } from "sonner";
+import { DocumentList } from "./document-list";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { TrashBox } from "./trash-box";
 
 export const Navigation = () => {
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
+    const create = useMutation(api.documents.create);
+
 
     const isResizingRef = useRef(false);
     const sidebarRef = useRef<ComponentRef<"aside">>(null);
@@ -80,12 +90,21 @@ export const Navigation = () => {
         }
     }
 
+    const handleCreate = () => {
+        const promise = create({ title: "Untitled" });
+        toast.promise(promise, {
+            loading: "Creating a new note...",
+            success: "New note created!",
+            error: "Failed to create a new note.",
+        });
+    };
+
     return (
         <>
             <aside
             ref={sidebarRef}
             className={cn(
-                "group/sidebar h-full bg-[#f4f4f4] dark:bg-[#121212] overflow-y-auto relative flex w-60 flex-col z-[99999]",
+                "group/sidebar h-full bg-neutral-100 dark:bg-neutral-900 overflow-y-auto relative flex w-60 flex-col z-[99999]",
                 isResetting && "transiton-all ease-in-out duration 300",
                 isMobile && "hidden"
             )}
@@ -100,10 +119,38 @@ export const Navigation = () => {
                 <ChevronsLeft className="h-6 w-6"/>
             </div>
                 <div>
-                    <p>Action items</p>
+                    <UserItem />
+                    <Item
+                        label="Search"
+                        icon={Search}
+                        isSearch
+                        onClick={() => {}}
+                    />
+                    <Item
+                        label="Settings"
+                        icon={Settings}
+                        onClick={() => {}}
+                    />
+                    <Item onClick={handleCreate} label="New page" icon={PlusCircle} />
                 </div>
                 <div className="mt-4">
-                    <p>Documents</p>
+                    <DocumentList />
+                    <Item
+                    onClick={handleCreate}
+                    label="New page"
+                    icon={PlusIcon}
+                    />
+                    <Popover>
+                        <PopoverTrigger className="w-full mt-4">
+                            <Item label="Trash" icon={Trash}/>
+                        </PopoverTrigger>
+                        <PopoverContent
+                        className="p-0 w-72 rounded-md bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 shadow-xl"
+                        side={isMobile ? "bottom" : "right"}
+                        >
+                            <TrashBox />
+                        </PopoverContent>
+                    </Popover>
                 </div>
                 <div
                 onMouseDown={handleMouseDown}

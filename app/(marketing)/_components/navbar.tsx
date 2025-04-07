@@ -27,7 +27,7 @@ export const Navbar = () => {
             {!isAuthenticated && !isLoading && (
               <>
               <SignInButton mode="modal">
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="bg-background text-foreground hover:bg-muted dark:hover:bg-muted-foreground">
                   Log in
                 </Button>
               </SignInButton>
@@ -40,7 +40,7 @@ export const Navbar = () => {
             )}
             {isAuthenticated && !isLoading && (
               <>
-              <Button variant={"ghost"} size="sm" asChild>
+              <Button variant={"ghost"} size="sm" asChild className="bg-background text-foreground hover:bg-muted dark:hover:bg-muted-foreground">
                 <Link href="/documents">
                 Enter MindPad
                 </Link>
