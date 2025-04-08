@@ -3,6 +3,7 @@ import '@/app/globals.css';
 import type { Metadata } from 'next';
 import { ConvexClientProvider } from '@/components/ui/providers/convex-provider';
 import { Toaster } from "sonner";
+import { ModalProvider } from '@/components/ui/providers/modal-provider';
 
 export const metadata = {
   title: 'MindPad',
@@ -32,6 +33,7 @@ export default function RootLayout({
           storageKey="mindpad-theme"
         >
               <Toaster position="bottom-center"/>
+              <ModalProvider />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>

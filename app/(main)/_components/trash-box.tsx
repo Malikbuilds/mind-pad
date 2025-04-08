@@ -10,12 +10,18 @@ import { toast } from "sonner";
 import Spinner from "@/components/spinner";
 import { Search, Trash, Undo } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { ConfirmModal } from "@/components/modals/confirm-modal";
 
 export const TrashBox = () => {
     const router = useRouter();
     const params = useParams();
     const documents = useQuery(api.documents.getTrash) as Array<{ _id: string; title: string }>;
     const restore = useMutation(api.documents.restore);
+
+    const handleRestoreSuccess = () => {
+        // This forces Convex to refetch the `getTrash` query
+        void router.refresh();
+    };
     const remove = useMutation(api.documents.remove);
 
     const [search, setSearch] = useState("");
@@ -33,6 +39,8 @@ export const TrashBox = () => {
         documentId: Id<"documents">,
     ) => {
         event.stopPropagation();
+        console.log("Restoring document ID:", documentId);
+
         const promise = restore({ id: documentId });
 
         toast.promise(promise, {
@@ -40,6 +48,8 @@ export const TrashBox = () => {
             success: "Note restored!",
             error:"Failed to restore note."
         });
+
+        promise.then(() => router.refresh());
     };
 
     const onRemove = (
@@ -100,17 +110,16 @@ export const TrashBox = () => {
                             >
                                 <Undo className="h-4 w-4 text-muted-foreground"/>
                             </div>
-                            <div
-                                role="button"
-                                className="rounded-sm p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800"
-                            >
-                                <Trash className="h-4 w-4 text-muted-foreground"/>
-                            </div>
+                            <ConfirmModal onConfirm={() => onRemove(document._id as Id<"documents">)}>
+                                <div
+                                    role="button"
+                                    className="rounded-sm p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                                >
+                                    <Trash className="h-4 w-4 text-muted-foreground"/>
+                                </div>
+                            </ConfirmModal>
                         </div>
                     </div>
-            
-            
-            
             ))}
            </div>
         </div>

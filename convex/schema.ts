@@ -13,5 +13,4 @@ export default defineSchema({
         isPublished: v.boolean(),
     })
     .index("byUser", ["userId", "parentDocument"])
-    .index("byParentDocument", ["userId" , "parentDocument"])
-})
+});

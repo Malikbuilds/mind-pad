@@ -35,6 +35,7 @@ module.exports = {
         "sidebar-primary-foreground": "oklch(var(--sidebar-primary-foreground))",
         "sidebar-accent": "oklch(var(--sidebar-accent))",
         "sidebar-accent-foreground": "oklch(var(--sidebar-accent-foreground))",
+        darkMode: "class",
       },
     }
   }

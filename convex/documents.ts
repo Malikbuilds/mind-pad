@@ -31,7 +31,7 @@ export const archive = mutation({
         const recursiveArchive = async (documentId: Id<"documents">) => {
             const children = await ctx.db
                 .query("documents")
-                .withIndex("byParentDocument", (q) =>(
+                .withIndex("byUser", (q) =>(
                     q
                         .eq("userId", userId)
                         .eq("parentDocument", documentId)
@@ -159,6 +159,9 @@ export const restore = mutation({
 
         const existingDocument = await ctx.db.get(args.id);
 
+        console.log("RESTORE: Found document", existingDocument);
+
+
         if (!existingDocument) {
             throw new Error("Not found");
         }
@@ -197,6 +200,8 @@ export const restore = mutation({
             }
         }
 
+        console.log("RESTORE: Updating document with options", options);
+
         const document = await ctx.db.patch(args.id, options);
 
         recursiveRestore(args.id);
@@ -229,5 +234,28 @@ export const remove = mutation({
         const document = await ctx.db.delete(args.id);
 
         return document;
+    }
+});
+
+export const getSearch = query({
+    handler: async (ctx) => {
+        const identity = await ctx.auth.getUserIdentity();
+
+        if(!identity) {
+            throw new Error("Not authenticated");
+        }
+
+        const userId = identity.subject;
+
+        const documents = await ctx.db
+            .query("documents")
+            .withIndex("byUser", (q) => q.eq("userId", userId))
+            .filter((q) =>
+                q.eq(q.field("isArchived"), false)
+            )
+            .order("desc")
+            .collect()
+
+           return documents;
     }
 });
