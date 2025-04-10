@@ -12,28 +12,29 @@ import {
 import { Button } from "@/components/ui/button"
 
 export function ModeToggle() {
-  const { setTheme } = useTheme()
-  const [isMounted, setIsMounted] = React.useState(false)
+  const { setTheme, theme, resolvedTheme } = useTheme();
+const [isMounted, setIsMounted] = React.useState(false);
 
-  React.useEffect(() => {
-    setIsMounted(true)
-  }, [])
+React.useEffect(() => {
+  setIsMounted(true);
+}, []);
 
   if (!isMounted) return null // 🧠 Prevent SSR mismatch
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
+      <Button variant="outline" size="icon">
+        {isMounted && resolvedTheme === "dark" ? (
+          <Moon className="h-[1.2rem] w-[1.2rem]" />
+        ) : (
+          <Sun className="h-[1.2rem] w-[1.2rem]" />
+        )}
+        <span className="sr-only">Toggle theme</span>
+      </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end"
       className="bg-white text-black dark:bg-[#1f1f1f] dark:text-white border border-border">
-        <DropdownMenuItem onClick={() => setTheme("light")} className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">Light</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")} className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">Dark</DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")} className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">System</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
