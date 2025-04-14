@@ -14,9 +14,9 @@ const buttonVariants = cva(
         outline:
           "border border-white text-white bg-transparent hover:bg-rose-600/40 transition",
           subtleOutline:
-          "border border-zinc-300 text-muted-foreground hover:bg-muted dark:border-zinc-700 dark:hover:bg-muted/20",
+          "border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-[#1f1f1f] text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800",
           ghost:
-          "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800",
+          "text-zinc-700 dark:text-zinc-300 bg-zinc-50 dark:bg-[#1f1f1f] hover:bg-zinc-100 dark:hover:bg-zinc-800",
         link:
           "text-blue-600 underline-offset-4 hover:underline dark:text-blue-400",
         destructive:

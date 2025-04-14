@@ -16,12 +16,12 @@ interface ToolbarProps {
 }
 
 export const Toolbar = ({
-    initalData,
+    initalData = {} as Doc<"documents">,
     preview
 }: ToolbarProps) => {
     const inputRef = useRef<React.ComponentRef<"textarea">>(null);
     const [isEditing, setIsEditing] = useState(false);
-    const [value, setValue] = useState(initalData.title);
+    const [value, setValue] = useState(initalData?.title);
 
     const update = useMutation(api.documents.update);
     const removeIcon = useMutation(api.documents.removeIcon);
@@ -33,7 +33,7 @@ export const Toolbar = ({
 
         setIsEditing(true);
         setTimeout(() => {
-            setValue(initalData.title);
+            setValue(initalData?.title);
             inputRef.current?.focus();
         }, 0);
     };
@@ -44,7 +44,7 @@ export const Toolbar = ({
     const onInput = (value: string) => {
         setValue(value);
         update({
-            id: initalData._id,
+            id: initalData?._id,
             title: value || "Untitled"
         });
     };
@@ -73,12 +73,12 @@ export const Toolbar = ({
 
     return (
         <div className="pl-[54px] group relative text-white">
-            {!!initalData.icon && !preview && (
+            {!!initalData?.icon && !preview && (
                 <div className="flex items-center gap-x-2 group/icon
                 pt-6">
                     <IconPicker onChange={onIconSelect}>
                         <p className="text-6xl hover:opacity-75 transition">
-                            {initalData.icon}
+                            {initalData?.icon}
                         </p>
                     </IconPicker>
                     <Button
@@ -92,14 +92,14 @@ export const Toolbar = ({
                     </Button>
                 </div>
             )}
-            {!!initalData.icon && preview && (
+            {!!initalData?.icon && preview && (
                 <p className="text-6xl pt-6">
-                    {initalData.icon}
+                    {initalData?.icon}
                 </p>
             )}
             <div className="opacity-0 group-hover:opacity-100
             flex items-center gap-x-1 py-4">
-                {!initalData.icon && !preview && (
+                {!initalData?.icon && !preview && (
                     <IconPicker asChild onChange={onIconSelect}>
                         <Button 
                         className="text-muted-foreground text-xs"
@@ -111,7 +111,7 @@ export const Toolbar = ({
                         </Button>
                     </IconPicker>
                 )}
-                {!initalData.coverImage && !preview && (
+                {!initalData?.coverImage && !preview && (
                     <Button
                     onClick={coverImage.onOpen}
                     className="text-muted-foreground text-xs"
@@ -139,7 +139,7 @@ export const Toolbar = ({
                     className="pb-[11.5px] text-5xl font-bold break-words
                     outline-none text-[#3f3f3f] dark:text-[#CFCFCF]"
                 >
-                    {initalData.title}
+                    {initalData?.title}
                 </div>
             )}
         </div>
